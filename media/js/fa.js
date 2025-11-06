@@ -147,12 +147,8 @@ function accepts(string) {
         throw "No initial state provided.";
     }
 
-    let alreadyAccepted = false;
-
     function acceptsHelper(states, string, index) {
         console.log("acceptsHelper(", states, index, string[index], ")");
-
-        if (alreadyAccepted) return true;
 
         if (states.length <= 0) {
             return false;
@@ -160,7 +156,6 @@ function accepts(string) {
 
         if (string.length <= index) {
             for (let state of states) {
-                alreadyAccepted = true;
                 if (state.isFinal) return true;
             }
             return false;
