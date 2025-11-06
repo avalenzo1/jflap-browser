@@ -51,7 +51,6 @@ function prettifyXML(xmlString) {
     return formatted.trim();
 }
 
-
 function getXML() {
     let xmlString = `<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <jflap>
@@ -76,7 +75,6 @@ function getXML() {
     return prettifyXML(xmlString);
 }
 
-
 function addTransition(newTransition) {
     if (!newTransition.isValid()) {
         return;
@@ -86,7 +84,8 @@ function addTransition(newTransition) {
 
     if (possibleExistingTransition) {
         console.log("Same in->out different read")
-        possibleExistingTransition.read.push(newTransition.read[0]);
+        if (!possibleExistingTransition.read.includes(newTransition.read[0]))
+            possibleExistingTransition.read.push(newTransition.read[0]);
     } else {
         console.log("New read");
         transitions.push(newTransition);
@@ -122,6 +121,69 @@ function setMode(mode) {
     } else {
         cursor(ARROW);
     }
+}
+
+function findReachableStates(state, read) {
+    if (state.length <= 0) return [];
+
+    console.log("Finding next states for " + state.name + " reading '" + read + "'")
+    let reachableStates = [];
+
+    transitions.forEach(transition => {
+        if (transition.read.includes(read) && transition.from.id == state.id) {
+            reachableStates.push(transition.to);
+        }
+    });
+
+    console.log(reachableStates);
+
+    return reachableStates;
+}
+
+function accepts(string) {
+    let initialState = findInitialState();
+
+    if (!initialState) {
+        throw "No initial state provided.";
+    }
+
+    let alreadyAccepted = false;
+
+    function acceptsHelper(states, string, index) {
+        console.log("acceptsHelper(", states, index, string[index], ")");
+
+        if (alreadyAccepted) return true;
+
+        if (states.length <= 0) {
+            return false;
+        }
+
+        if (string.length <= index) {
+            for (let state of states) {
+                alreadyAccepted = true;
+                if (state.isFinal) return true;
+            }
+            return false;
+        }
+
+        for (let state of states) {
+            console.log("epsilon")
+            let epsilonReachableStates = findReachableStates(state, '');
+            // Bug this will never ender since I dont update index oops!
+            if (acceptsHelper(epsilonReachableStates, string, index)) {
+                return true;
+            }
+
+            let symbolReachableStates = findReachableStates(state, string[index]);
+            if (acceptsHelper(symbolReachableStates, string, index + 1)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    return acceptsHelper([initialState], string, 0);
 }
 
 function setup() {
