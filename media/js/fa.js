@@ -629,7 +629,7 @@ let menubar = new MenuBar("menubar", [{
     "items": [
         { "label": "Step with Closure...", "shortcut": ["ctrl", "N"], "action": () => console.log("New") },
         { "label": "Step with State...", "shortcut": ["ctrl", "O"], "action": () => console.log("Open") },
-        { "label": "Fast Run...", "shortcut": ["ctrl", "S"], "action": () => fastRun() },
-        { "label": "Multiple Run... (works)", "shortcut": ["shift", "ctrl", "S"], "action": () => console.log("Save As") },
+        { "label": "Fast Run... (works kinda... :( )", "shortcut": ["ctrl", "S"], "action": () => fastRun() },
+        { "label": "Multiple Run...", "shortcut": ["shift", "ctrl", "S"], "action": () => console.log("Save As") },
     ]
 }]);
