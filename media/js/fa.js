@@ -189,7 +189,13 @@ function accepts(string) {
 function fastRun() {
     let string = prompt("Enter your string");
 
-    alert(`The string "${string}" ${accepts(string) ? "Accepts" : "Rejects"}`);
+    try {
+        alert(`The string "${string}" ${accepts(string) ? "Accepts" : "Rejects"}`);
+    } catch (error) {
+        alert(error);
+    }
+
+    
 }
 
 function setup() {
