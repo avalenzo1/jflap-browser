@@ -8,7 +8,7 @@ class MenuBar {
         // This is actually the menu Container, must rename this to be accurate
         this.menuNode = document.getElementById(this.id);
 
-        console.log(menu)
+        // console.log(menu)
 
         let menuBarNode = document.createElement("ul");
         menuBarNode.classList.add("menubar");
@@ -22,7 +22,7 @@ class MenuBar {
         if (!menuItems) { return; }
 
         menuItems.forEach(menuItem => {
-            console.log(menuItem);
+            // console.log(menuItem);
 
             let menuItemNode = document.createElement("li");
             let menuBtn = document.createElement("button");
@@ -84,7 +84,7 @@ class ContextMenu {
     closeMenu(e) {
         if (e?.key && e.key !== "Escape") return;
 
-        console.log("close")
+        // console.log("close")
 
         window.removeEventListener("click", this.closeMenu);
         window.removeEventListener("blur", this.closeMenu);
@@ -99,7 +99,7 @@ class ContextMenu {
         if (!menuItems) { return; }
 
         menuItems.forEach(menuItem => {
-            console.log(menuItem);
+            // console.log(menuItem);
 
             let menuItemNode = document.createElement("li");
             let menuBtn = document.createElement("button");

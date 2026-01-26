@@ -6,21 +6,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JFLAP - FA</title>
 
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap"
         rel="stylesheet">
+
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="media/css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/3.35.0/tabler-icons.min.css"
         integrity="sha512-gzw5zNP2TRq+DKyAqZfDclaTG4dOrGJrwob2Fc8xwcJPDPVij0HowLIMZ8c1NefFM0OZZYUUUNoPfcoI5jqudw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-
+    <!-- External Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/2.0.5/p5.min.js"
         integrity="sha512-jOTg6ikYiHx1LvbSOucnvZi4shXbaovZ91+rfViIiUFLgAJK+k1oQtGEaLvDB8rsZwEfUksTgmhrxdvEDykuzQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
+
+    <!-- Internal Scripts -->
     <script src="media/js/app.js" type="text/javascript" defer></script>
-    <script src="media/js/fa.js" type="text/javascript" defer></script>
+
+    <script src="media/js/fa/models.js" type="text/javascript" defer></script>
+    <script src="media/js/fa/logic.js" type="text/javascript" defer></script>
+    <script src="media/js/fa/controller.js" type="text/javascript" defer></script>
+    <script src="media/js/fa/view.js" type="text/javascript" defer></script>
+    <script src="media/js/fa/file.js" type="text/javascript" defer></script>
 </head>
 
 <body>
@@ -42,18 +52,18 @@
             <div class="btn-group">
                 <input type="radio" name="mode" value="attribute_editor" id="attribute_editor" hidden>
                 <label for="attribute_editor" class="btn" title="(A)ttribute Editor"
-                    onclick="setMode('attribute_editor')"><i class="ti ti-pointer"></i></label>
+                    onclick="window.automaton.mode = Mode.ATTRIBUTE_EDITOR"><i class="ti ti-pointer"></i></label>
 
                 <input type="radio" name="mode" value="state_creator" id="state_creator" hidden>
-                <label for="state_creator" class="btn" title="(S)tate Creator" onclick="setMode('state_creator')"><i
+                <label for="state_creator" class="btn" title="(S)tate Creator" onclick="window.automaton.mode = Mode.STATE_CREATOR"><i
                         class="ti ti-circle-dotted-letter-q"></i></label>
 
                 <input type="radio" name="mode" value="transition_creator" id="transition_creator" hidden>
                 <label for="transition_creator" class="btn" title="(T)ransition Creator"
-                    onclick="setMode('transition_creator')"><i class="ti ti-arrow-narrow-right"></i></label>
+                    onclick="window.automaton.mode = Mode.TRANSITION_CREATOR"><i class="ti ti-arrow-narrow-right"></i></label>
 
                 <input type="radio" name="mode" value="deleter" id="deleter" hidden>
-                <label for="deleter" class="btn" title="(D)eleter" onclick="setMode('deleter')"><i
+                <label for="deleter" class="btn" title="(D)eleter" onclick="window.automaton.mode = Mode.DELETER"><i
                         class="ti ti-skull"></i></label>
             </div>
         </div>

@@ -1,0 +1,32 @@
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    flex-direction: column;
+}
+
+.modal {
+    border: solid 1px #ededed;
+    border-radius: 2rem;
+    box-shadow: 0 47px 3.5rem 1rem #ededed;
+    overflow: overlay;
+}
+
+.modal .modal-header {
+    padding: 2rem;
+    background-color: blueviolet;
+    color: #ffffff;
+}
+
+.home-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem;
+    list-style-type: none;
+}
+
+.home-nav .btn {
+    width: 100%;
+}

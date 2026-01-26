@@ -1,18 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="media/css/styles.css">
-    
+    <link rel="stylesheet" href="media/css/home.css">
+
     <title>JFLAP Browser</title>
 </head>
+
 <body>
-    <ul>
-        <li><button onclick="window.location.pathname='/fa.html'">Finite Automaton</button></li>
-        <li><button>Grammar</button></li>
-        <li><button>Pushdown Automaton</button></li>
-        <li><button>Turing Machine</button></li>
-    </ul>
+    <div class="modal">
+        <header class="modal-header">
+            <h1>
+                JFLAP Browser
+            </h1>
+        </header>
+
+        <div>
+            <ul class="home-nav">
+                <li><button class="btn" onclick="window.location.pathname='/fa.html'">Finite Automaton</button></li>
+                <li><button class="btn">Grammar</button></li>
+                <li><button class="btn">Pushdown Automaton</button></li>
+                <li><button class="btn">Turing Machine</button></li>
+            </ul>
+        </div>
+    </div>
 </body>
+
 </html>
