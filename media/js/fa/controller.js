@@ -32,7 +32,8 @@ let menubar = new MenuBar("menubar", [{
     ]
 }]);
 
-let initialPos;
+let initialPos, activeState;
+let frSt, toSt;
 
 function windowResized() {
     resizeCanvas(windowWidth, windowHeight);
@@ -59,36 +60,98 @@ function mousePressed() {
     if (mouseX < 0 || mouseY < 0) return;
 
     initialPos = createVector(mouseX, mouseY);
+    activeState = window.automaton.findStateByPos(mouseX, mouseY); // add activeState
 
-    if (window.automaton.mode == Mode.ATTRIBUTE_EDITOR) {
-        
-    }
-
-    if (window.automaton.mode == Mode.STATE_CREATOR) {
-        window.automaton.addState(mouseX, mouseY);
-    }
-
-    if (window.automaton.mode == Mode.TRANSITION_CREATOR) {
-
-    }
-
-    if (window.automaton.mode == Mode.DELETER) {
-        let candidateState = window.automaton.findStateByPos(mouseX, mouseY);
-
-        if (candidateState) {
-            window.automaton.removeState(candidateState);
-        }
+    switch (window.automaton.mode) {
+        case Mode.ATTRIBUTE_EDITOR:
+            break;
+        case Mode.STATE_CREATOR:
+            window.automaton.addState(mouseX, mouseY);
+            break;
+        case Mode.TRANSITION_CREATOR:
+            break;
+        case Mode.DELETER:
+            break;
+        case Mode.NONE:
+            console.warn("No Mode Set");
+            break;
     }
 }
 
 function mouseDragged() {
     if (mouseX < 0 || mouseY < 0) return;
 
-
+    switch (window.automaton.mode) {
+        case Mode.ATTRIBUTE_EDITOR:
+            activeState.x = mouseX;
+            activeState.y = mouseY;
+            activeState.dragged = true;
+            break;
+        case Mode.STATE_CREATOR:
+            break;
+        case Mode.TRANSITION_CREATOR:
+            break;
+        case Mode.DELETER:
+            break;
+        case Mode.NONE:
+            break;
+    }
 }
 
 function mouseReleased() {
     if (mouseX < 0 || mouseY < 0) return;
 
-    initialPos = undefined;
+    switch (window.automaton.mode) {
+        case Mode.ATTRIBUTE_EDITOR:
+            activeState.dragged = false;
+            break;
+        case Mode.STATE_CREATOR:
+            break;
+        case Mode.TRANSITION_CREATOR:
+            let fromState = activeState;
+            let toState = window.automaton.findStateByPos(mouseX, mouseY);
+
+            if (!fromState || !toState) break;
+
+            newTransition(fromState, toState);
+
+
+            break;
+        case Mode.DELETER:
+            let pressedState = window.automaton.findStateByPos(mouseX, mouseY);
+
+            if (pressedState) {
+                window.automaton.removeState(activeState);
+            }
+            break;
+        case Mode.NONE:
+            break;
+    }
+
+    initialPos = null;
+    activeState = null;
+}
+
+function newTransition(fromState, toState) {
+    frSt = fromState;
+    toSt = toState;
+    let midpoint = createVector((fromState.x + toState.x) / 2, (fromState.y + toState.y) / 2);
+
+    transitionInput.position(midpoint.x - transitionInput.width / 2, midpoint.y - transitionInput.height / 2);
+    transitionInput.show();
+    transitionInput.elt.focus();
+}
+
+function onInputEnter(event) {
+    if (event.key == "Escape") {
+        transitionInput.value('');
+        transitionInput.hide();
+        return;
+    }
+    if (!frSt || !toSt || event.key != "Enter") return;
+
+    window.automaton.addTransition(frSt.id, toSt.id, transitionInput.value());
+
+    transitionInput.value('');
+    transitionInput.hide();
 }

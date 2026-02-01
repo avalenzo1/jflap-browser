@@ -14,8 +14,6 @@ class Automaton {
         this.transitions = new Map();
         this._mode = Mode.NONE;
 
-        this.activeElement = undefined;
-
         // History
         let prev = [];
         let next = [];
@@ -160,17 +158,18 @@ class FiniteAutomaton extends Automaton {
     addTransition(fromId, toId, read) {
         let from = this.findStateById(fromId);
         let to = this.findStateById(toId);
+        let compositeKey = fromId + '|' + toId;
 
         if (!from || !to) {
             console.warn(`Could not add transiton ${fromId}, ${toId}, ${read}. from or to id does not exist.`);
             console.log(from, to);
         }
 
-        if (!this.transitions.has(fromId)) {
-            this.transitions.set(fromId, new Set());
+        if (!this.transitions.has(compositeKey)) {
+            this.transitions.set(compositeKey, new Set());
         }
 
-        this.transitions.get(fromId).add(new Transition(from, to, read));
+        this.transitions.get(compositeKey).add(new Transition(from, to, read));
     }
 
     /**

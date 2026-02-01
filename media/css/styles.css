@@ -30,7 +30,8 @@ body {
     gap: 0.5rem;
 }
 
-.menubar button, .menu button {
+.menubar button,
+.menu button {
     padding: 0.25rem 0.5rem;
     width: 100%;
     background-color: #ffffff;
@@ -40,11 +41,13 @@ body {
     border-radius: 0.5rem;
 }
 
-.menubar button:hover, .menu button:hover {
+.menubar button:hover,
+.menu button:hover {
     background-color: #fcf2ff;
 }
 
-.menubar button:active, .menu button:active {
+.menubar button:active,
+.menu button:active {
     background-color: var(--jff-primary-color);
     color: #ffffff;
 }
@@ -136,6 +139,13 @@ body {
 .btn-group input[type=radio]:checked+.btn {
     background-color: var(--jff-primary-color);
     color: #ffffff;
+}
+
+input {
+    font-size: 12px;
+    width: 80px;
+    padding: 0px 2px;
+    border: solid 1px;
 }
 
 .btn {

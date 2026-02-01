@@ -28,6 +28,10 @@ class Transition {
         this.to = to;
         this.read = read;
     }
+
+    get isSelfLoop() {
+        return this.from == this.to;
+    }
 }
 
 const properties = {
